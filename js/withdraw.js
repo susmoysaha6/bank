@@ -1,40 +1,18 @@
-/*  */
-
-// step-1
 document.getElementById('btn-withdraw').addEventListener('click', function () {
-    // step-2 
-    const withdrawField = document.getElementById('withdraw-field');
-    const newWithdawAmountString = withdrawField.value;
-    const newWithdawAmount = parseFloat(newWithdawAmountString);
-
-    // step-7 
-    withdrawField.value = '';
-
-    if (isNaN(newWithdawAmount)) {
-        alert('Enter withdraw amount');
+    const newWithdrawAmount = getInputFieldValueById('withdraw-field');
+    if (isNaN(newWithdrawAmount) || newWithdrawAmount < 0) {
+        alert('Please, enter a valid number');
         return;
     }
-    // step-3 
-    const withdrawTotalElement = document.getElementById('withdraw-total');
-    const previousWithdrawTotalString = withdrawTotalElement.innerText;
-    const previousWithdrawTotal = parseFloat(previousWithdrawTotalString);
-
-    // step-5 
-    const balanceTotalElement = document.getElementById('balance-total');
-    const previousBalanceTotalString = balanceTotalElement.innerText;
-    const previousBalanceTotal = parseFloat(previousBalanceTotalString);
-
-
-    if (newWithdawAmount > previousBalanceTotal) {
+    const previousWithdrawTotal = getTextElementValueById('withdraw-total');
+    const previousBalanceTotal = getTextElementValueById('balance-total');
+    if (newWithdrawAmount > previousBalanceTotal) {
         alert('You do not heve enough balance ');
         return;
     }
-    // step-4
-    const currentWithdrawTotal = previousWithdrawTotal + newWithdawAmount;
-    withdrawTotalElement.innerText = currentWithdrawTotal;
-    // step-6 
-    const currentBalanceTotal = previousBalanceTotal - newWithdawAmount;
-    balanceTotalElement.innerText = currentBalanceTotal;
+    const newWithdrawTotal = previousWithdrawTotal + newWithdrawAmount;
+    setTextElementValueById('withdraw-total', newWithdrawTotal);
 
-
-});
+    const newBalanceTotal = previousBalanceTotal - newWithdrawAmount;
+    setTextElementValueById('balance-total', newBalanceTotal);
+})
